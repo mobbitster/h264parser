@@ -5,7 +5,6 @@
 #include "parser.h"
 #include "prediction.h"
 #include "residuals.h"
-#include "codetables.h"
 #include "scanorder.h"
 
 namespace h264 {
@@ -17,6 +16,10 @@ static struct code_table *coeff_token_code_table_ChromaDC;
 static struct code_table *total_zeros_code_table_4x4[15];
 static struct code_table *total_zeros_code_table_ChromaDC[3];
 static struct code_table *run_before_code_table[6];
+
+Residuals::Residuals(Macroblock &mb) : mb(mb) {
+};
+
 
 struct code_table *Residuals::initCodeTable(
 		struct code_table_item *items) {
@@ -241,6 +244,10 @@ void Residuals::parse()
 				int val;
 
 // printf("luma_ac_nc %d\n", luma_ac_nc);
+
+//				printf("\t** mb_pos_x = %d, mb_pos_y = %d, x = %d, y = %d\n",
+//						x, y, mb.mb_pos_x, mb.mb_pos_y);
+
 				if (mb.mb_part_pred_mode[0] == Intra_16x16)
 					val = residualBlock(&luma_ac_level[idx][1], 15, luma_ac_nc);
 				else

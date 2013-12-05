@@ -12,7 +12,7 @@ private:
 	Macroblock &mb;
 	static bool code_tables_initialized;
 public:
-	Residuals(Macroblock &mb) : mb(mb) {};
+	Residuals(Macroblock &mb);
 	void parse();
 private:
 

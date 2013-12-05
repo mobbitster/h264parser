@@ -111,6 +111,7 @@ int PPS::parse()
 	printf("num_ref_idx_l0_active %d num_ref_idx_l1_active %d\n", 
 		this->num_ref_idx_l0_active, this->num_ref_idx_l1_active);
 #endif
+
 	this->weighted_pred_flag = bs.getBit();
 	this->weighted_bipred_idc = bs.getBits(2);
 	this->pic_init_qp = bs.getSignedEG() + 26;

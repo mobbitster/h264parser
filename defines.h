@@ -83,6 +83,32 @@ enum {
 
 };
 
+#define is_intra(m)	((m) >= I_4x4 && (m) <= I_PCM)
+#define is_inter(m) (((m) >= P_L0_16x16 && (m) <= B_8x8) || (m) == P_SKIP || (m) == B_SKIP)
+
+enum {
+	P_L0_8x8		= 0,
+	P_L0_8x4,
+	P_L0_4x8,
+	P_L0_4x4,
+};
+
+enum {
+	B_Direct_8x8	= 0,
+	B_L0_8x8,
+	B_L1_8x8,
+	B_Bi_8x8,
+	B_L0_8x4,
+	B_L0_4x8,
+	B_L1_8x4,
+	B_L1_4x8,
+	B_Bi_8x4,
+	B_Bi_4x8,
+	B_L0_4x4,
+	B_L1_4x4,
+	B_Bi_4x4,
+};
+
 enum {
 	Intra_4x4,
 	Intra_16x16,
@@ -93,6 +119,8 @@ enum {
 };
 
 #define NA	(-1)
+
+#define chroma_array_type	(1)
 
 }
 

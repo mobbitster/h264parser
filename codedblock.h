@@ -3,6 +3,8 @@
 
 #include "macroblock.h"
 
+class Macroblock;
+
 namespace h264 {
 
 class CodedBlock {

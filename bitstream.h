@@ -34,7 +34,13 @@ public:
 	int findBits(unsigned int val_to_find, int bits);
 
 	unsigned int getEG();
-	unsigned int getSignedEG();
+	int getSignedEG();
+
+	unsigned int getTruncEG(int range) {
+		if (range == 1)
+			return getBit();
+		return getEG();
+	}
 
 	void showStat();
 };

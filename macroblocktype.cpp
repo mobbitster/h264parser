@@ -177,9 +177,9 @@ const char *MacroblockType::predictionModeToString(int mode)
 
 void MacroblockType::setUndef(Macroblock &mb)
 {
-	mb.mb_type = 0xff;
-	mb.mb_part_pred_mode[0] = 0xff;
-	mb.mb_part_pred_mode[1] = 0xff;
+	mb.mb_type = NA;
+	mb.mb_part_pred_mode[0] = NA;
+	mb.mb_part_pred_mode[1] = NA;
 }
 
 void MacroblockType::decodeISlice(Macroblock &mb, int rawType)
@@ -202,6 +202,13 @@ void MacroblockType::decodeISlice(Macroblock &mb, int rawType)
 
 void MacroblockType::decodePSlice(Macroblock &mb, int rawType)
 {
+	printf("rawType = %d\n", rawType);
+
+	if (rawType > 5) {
+		setUndef(mb);
+		return;
+	}
+
 	mb.mb_type = P_L0_16x16 + rawType;
 	mb.num_mb_parts = p_slice_mb_modes[rawType][0];
 	mb.mb_part_pred_mode[0] = p_slice_mb_modes[rawType][1];
@@ -215,6 +222,11 @@ void MacroblockType::decodePSlice(Macroblock &mb, int rawType)
 
 void MacroblockType::decodeBSlice(Macroblock &mb, int rawType)
 {
+	if (rawType > 23) {
+		setUndef(mb);
+		return;
+	}
+
 	mb.mb_type = B_Direct_16x16 + rawType;
 	mb.num_mb_parts = b_slice_mb_modes[rawType][0];
 	mb.mb_part_pred_mode[0] = b_slice_mb_modes[rawType][1];
@@ -228,6 +240,8 @@ void MacroblockType::decodeBSlice(Macroblock &mb, int rawType)
 
 void MacroblockType::decode(Macroblock &mb, int rawType)
 {
+	printf("slice_type = %d\n", mb.sliceHeader.slice_type);
+
 	switch (mb.sliceHeader.slice_type) {
 		case I_SLICE:
 			MacroblockType::decodeISlice(mb, rawType);
@@ -249,6 +263,7 @@ void MacroblockType::decode(Macroblock &mb, int rawType)
 	printf("\t\tpred_mode[0] %s pred_mode[1] %s\n",
 		MacroblockType::predictionModeToString(mb.mb_part_pred_mode[0]), 
 		MacroblockType::predictionModeToString(mb.mb_part_pred_mode[1]));
+	printf("\t\tnum_mb_parts %d\n", mb.num_mb_parts);
 #endif
 }
 

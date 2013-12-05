@@ -1,9 +1,11 @@
 CC := gcc
-SOURCES := main.cpp parser.cpp bitstream.cpp params.cpp slice.cpp sliceheader.cpp prediction.cpp \
-	macroblock.cpp macroblocktype.cpp codedblock.cpp residuals.cpp scanorder.cpp
+#SOURCES := main.cpp parser.cpp bitstream.cpp params.cpp slice.cpp sliceheader.cpp prediction.cpp \
+#	macroblock.cpp macroblocktype.cpp codedblock.cpp residuals.cpp scanorder.cpp
+SOURCES := $(wildcard *.cpp)
+INCLUDES := $(wildcard *.h)
 OBJS := $(patsubst %.cpp,%.o,$(SOURCES))
 #CFLAGS := -Wall -O3 -msse -ffast-math
-CPPFLAGS := -I. 
+CPPFLAGS := -I. -g 
 LDFLAGS = 
 INCLUDES = 
 LIBS = 
@@ -17,7 +19,7 @@ clean:
 parser: $(OBJS)
 	$(LINK.cpp) $(LIBS) -o $@ $^ 
 
-%.o: %.cpp
+%.o: %.cpp %.h
 	$(COMPILE.cpp) $(CPPFLAGS) $(CFLAGS) $(INCLUDES) -c -o $@ $<
 
 .PHONY:	all parser

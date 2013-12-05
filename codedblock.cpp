@@ -1,5 +1,6 @@
 #include "codedblock.h"
 #include "defines.h"
+#include "macroblock.h"
 
 namespace h264 {
 
@@ -20,7 +21,7 @@ void CodedBlock::parse(Macroblock &mb)
 	int coded_block_pattern = mb.bs.getEG();
 
 #ifdef DEBUG
-	printf("Parse coded block\n");
+	printf("Parse coded block idx %d\n", coded_block_pattern);
 #endif
 	/* FIXME: Check ChromaArrayType */
 	if (mb.mb_part_pred_mode[0] == Intra_4x4)
@@ -32,7 +33,8 @@ void CodedBlock::parse(Macroblock &mb)
 	mb.coded_block_pattern_chroma = coded_block_pattern >> 4;
 
 #ifdef DEBUG
-	printf("\tcoded_block_pattern %d\n", coded_block_pattern);
+	printf("\tcoded_block_pattern %d coded_block_pattern_luma %d coded_block_pattern_chroma %d\n",
+			coded_block_pattern, mb.coded_block_pattern_luma, mb.coded_block_pattern_chroma);
 #endif
 }
 

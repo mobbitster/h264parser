@@ -10,6 +10,7 @@ int Slice::parseData()
 	int data_remain;
 	// int mb_skip_run;
 	int mb_pos_x, mb_pos_y;
+	Macroblock mb(bs, parser, sliceHeader);
 	
 #ifdef DEBUG
 	printf("Parse slice data\n");
@@ -29,7 +30,6 @@ int Slice::parseData()
 
 		bs.showStat();
 
-		Macroblock mb(bs, parser, sliceHeader);
 		mb.parse(cur_mb_addr, mb_count);
 
 		data_remain = bs.remain();

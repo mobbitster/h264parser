@@ -5,6 +5,8 @@
 
 namespace h264 {
 
+class Macroblock;
+
 class MacroblockType
 {
 public:

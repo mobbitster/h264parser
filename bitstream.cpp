@@ -146,7 +146,7 @@ unsigned int Bitstream::getEG()
 	return (value - 1);
 }
 
-unsigned int Bitstream::getSignedEG()
+int Bitstream::getSignedEG()
 {
 	int value = getEG();
 	return (value & 0x01) ? (value + 1) >> 1 : -(value >> 1);

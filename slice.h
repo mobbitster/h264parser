@@ -10,12 +10,12 @@ namespace h264 {
 class Slice {
 private:
 	Bitstream &bs;
-	Parser const& parser;
+	Parser &parser;
 	SPS const& sps;
 	PPS const& pps;
 	SliceHeader sliceHeader;
 public:
-	Slice(Bitstream &bs, Parser const& parser) : 
+	Slice(Bitstream &bs, Parser &parser) :
 		bs(bs), parser(parser), sps(parser.sps), pps(parser.pps), sliceHeader(bs, parser)
 	{
 	};
